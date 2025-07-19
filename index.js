@@ -9,6 +9,7 @@ dotenv.config();
 
 const {userRouter} = require("./routes/user")
 const {courseRouter} = require("./routes/course")
+const {adminRouter} = require("./routes/admin")
 
 const PORT = (3001, process.env.PORT);
 const DATABASE = process.env.MONGODBURI;
@@ -16,6 +17,7 @@ const DATABASE = process.env.MONGODBURI;
 
 app.use("/user", userRouter);
 app.use("/course", courseRouter);
+app.use("/admin", adminRouter);
 
 
 mongoose.connect(DATABASE)
