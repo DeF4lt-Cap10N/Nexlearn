@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const {userRouter} = require("./routes/user")
-const {courseRouter} = require("./routes/course")
-const {adminRouter} = require("./routes/admin")
+const { userRouter } = require("./routes/user")
+const { courseRouter } = require("./routes/course")
+const { adminRouter } = require("./routes/admin")
 
 const PORT = (3001, process.env.PORT);
 const DATABASE = process.env.MONGODBURI;
@@ -20,11 +20,17 @@ app.use("/course", courseRouter);
 app.use("/admin", adminRouter);
 
 
-mongoose.connect(DATABASE)
-    .then(() => {
-        console.log("Db connected!")
-    })
 
-app.listen(PORT, () => {
-    console.log(`server running on ${PORT}`)
-});
+async function main() {
+    await mongoose.connect(DATABASE)
+        .then(() => {
+            console.log("Db connected!")
+        })
+
+    app.listen(PORT, () => {
+        console.log(`server running on ${PORT}`)
+    });
+
+}
+
+main();
