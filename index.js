@@ -15,11 +15,13 @@ const PORT = (3001, process.env.PORT);
 const DATABASE = process.env.MONGODBURI;
 
 
-app.use("/user", userRouter);
-app.use("/course", courseRouter);
-app.use("/admin", adminRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/course", courseRouter);
+app.use("/api/v1/admin", adminRouter);
 
-
+app.get("/api/v1", (req, res)=>{
+    res.send("hello boys");
+})
 
 async function main() {
     await mongoose.connect(DATABASE)
