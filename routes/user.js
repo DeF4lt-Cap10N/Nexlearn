@@ -1,32 +1,65 @@
-const {Router} =  require("express");
+const { Router } = require("express");
 const userRouter = Router();
 const bcrypt = require("bcrypt");
-const {userModel} = require("../db");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
+dotenv.config();
+const { userModel } = require("../db");
 
 
 
-userRouter.post("/signup", async(req, res) => {
-    const {email, password, firstName, lastName} = req.body;
+userRouter.post("/signup", async (req, res) => {
+    const { email, password, firstName, lastName } = req.body;
 
-    const hashPass =await bcrypt.hash(password, 5);
+    const hashPass = await bcrypt.hash(password, 5);
 
-    await userModel.create({
-        email:email,
-        password:hashPass,
-        firstName:firstName,
-        lastName:lastName
-    })
+    try {
+        await userModel.create({
+            email: email,
+            password: hashPass,
+            firstName: firstName,
+            lastName: lastName
+        })
+    }
+    catch (err) {
+        console.log(`error in db : ${err}`)
+    }
+
 
 
     res.json({
-        messsage:"User signup succesfully",
-        password:hashPass
+        messsage: "User signup succesfully",
+        password: hashPass
     })
 
 })
 
-userRouter.post("/signin", (req, res) => {
+userRouter.post("/signin", async (req, res) => {
+    const { email, password } = req.body;
 
+    const findUser = await userModel.findOne({
+        email: email
+    })
+
+    const matchPass = bcrypt.compare(password, findUser.password);
+
+    console.log(findUser);
+
+    if (matchPass) {
+        const token = jwt.sign({
+            id: findUser._id.toString(),
+        }, process.env.JWT_SECRET_USER);
+
+        res.json({
+            token: token,
+            messsage: "login sucessfully"
+        })
+    }
+    else {
+        res.json({
+            messsage: "admin not find"
+        })
+    }
 })
 
 userRouter.get("/purchases", (req, res) => {
@@ -34,6 +67,6 @@ userRouter.get("/purchases", (req, res) => {
 })
 
 
-module.exports={
-    userRouter:userRouter
+module.exports = {
+    userRouter: userRouter
 }

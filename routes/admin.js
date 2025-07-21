@@ -35,14 +35,14 @@ adminRouter.post("/signin", async (req, res) => {
         email: email
     })
 
-    const matchPass = bcrypt.compare(password, findAdmin.password);
+    const matchPass = await bcrypt.compare(password, findAdmin.password);
 
-    console.log(matchPass);
+    console.log(findAdmin);
 
     if (matchPass) {
         const token = jwt.sign({
             id: findAdmin._id.toString(),
-        }, process.env.JWT_SECRET);
+        }, process.env.JWT_SECRET_ADMIN);
 
         res.json({
             token: token,
@@ -54,7 +54,6 @@ adminRouter.post("/signin", async (req, res) => {
             messsage: "admin not find"
         })
     }
-
 
 })
 
