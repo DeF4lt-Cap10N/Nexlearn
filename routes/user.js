@@ -4,7 +4,8 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 dotenv.config();
-const { userModel } = require("../db");
+const { userModel, purchaseModel } = require("../db");
+const { usermiddleware } = require("../middleware/user");
 
 
 
@@ -62,8 +63,23 @@ userRouter.post("/signin", async (req, res) => {
     }
 })
 
-userRouter.get("/purchases", (req, res) => {
+userRouter.get("/purchases",usermiddleware, async(req, res) => {
+    const userId = req.userId;
 
+    const purchases = await purchaseModel.find({
+        userId
+    });
+
+    if(purchases){
+        res.json({
+            purchases
+        })
+    }
+    else{
+        res.json({
+            messsage:"you have not purchase any course yet!!"
+        })
+    }
 })
 
 

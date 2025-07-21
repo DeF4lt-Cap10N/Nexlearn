@@ -5,7 +5,9 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { adminModel } = require("../db")
+const { adminmiddleware } = require("../middleware/admin")
+
+const { adminModel, courseModel } = require("../db")
 
 
 adminRouter.post("/signup", async (req, res) => {
@@ -57,23 +59,76 @@ adminRouter.post("/signin", async (req, res) => {
 
 })
 
-adminRouter.post("/course", (req, res) => {
+adminRouter.post("/course", adminmiddleware, async (req, res) => {
+    const adminId = req.userId;
+
+    const { title, description, imageUrl, price } = req.body;
+
+    const course = await courseModel.create({
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        price: price,
+        creatorId: adminId
+    });
+
+
     res.json({
-        messsage: ""
+        messsage: "course Created",
+        courseId: course._id
     })
 })
 
-adminRouter.put("/course", (req, res) => {
-    res.json({
-        messsage: ""
-    })
+adminRouter.put("/course", adminmiddleware, async (req, res) => {
+    const adminId = req.userId;
+    const { title, description, imageUrl, price, courseId } = req.body;
+
+    const course = await courseModel.findOneAndUpdate({
+        _id: courseId,
+        creatorId: adminId
+    }, {
+        title: title,
+        description: description,
+        imageUrl: imageUrl,
+        price: price,
+    }, {
+        new: true
+    });
+
+
+    if (course) {
+        res.json({
+            messsage: "course updated",
+            courseId: course._id
+        })
+    }
+    else {
+        res.json({
+            messsage: "course invalid",
+        })
+    }
+
 })
 
 
-adminRouter.delete("/course", (req, res) => {
-    res.json({
-        messsage: ""
-    })
+adminRouter.get("/course/bulk", adminmiddleware, async (req, res) => {
+    const adminId = req.userId;
+
+    const courses = await courseModel.find({
+        creatorId: adminId
+    });
+
+    if (courses) {
+        res.json({
+            course: courses
+        })
+    }
+    else {
+        res.json({
+            messsage: "courses are empty!!"
+        })
+    }
+
 })
 
 
