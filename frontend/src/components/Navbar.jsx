@@ -1,12 +1,13 @@
 import React from "react";
+import logo from "../assets/ChatGPT Image Jul 23, 2025, 01_12_03 AM.png"
 
 const Navbar = () => {
   return (
     <>
-      <div className="bg-white text-black flex justify-between p-2 pt-1 font-serif ">
+      <div className="fixed top-0 left-0 z-50 bg-white text-black flex justify-between p-2 pt-1 font-serif w-screen ">
         <div className="ml-5">
           <img
-            src="https://sdmntprwestus2.oaiusercontent.com/files/00000000-3284-61f8-a954-ca2a6322fb8d/raw?se=2025-07-22T19%3A26%3A06Z&sp=r&sv=2024-08-04&sr=b&scid=4d0f5167-54db-500e-b2b9-18f8e9664c3d&skoid=789f404f-91a9-4b2f-932c-c44965c11d82&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-21T23%3A49%3A41Z&ske=2025-07-22T23%3A49%3A41Z&sks=b&skv=2024-08-04&sig=O2tkiM77FECwPqLflaDgGO0NXlYmwl6QoMyXdOc/E4o%3D"
+            src={logo}
             className="w-12 h-12 rounded-full border border-gray-400"
           />
         </div>
@@ -46,7 +47,7 @@ const Navbar = () => {
             <span>Signup</span>
           </button>
           <button className="bg-blue text-white p-2 pl-5 pr-5 rounded-full cursor-pointer">
-            <span cl>Login</span>
+            <span >Login</span>
           </button>
         </div>
       </div>
