@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LeftBar = () => {
   const [activeTab, setActiveTab] = useState("Home");
@@ -20,16 +21,21 @@ const LeftBar = () => {
           Main Menu
         </p>
 
-        <h3 className={ontabClick("Home")} onClick={() => setActiveTab("Home")}>
+        <Link
+          to="/"
+          className={ontabClick("Home")}
+          onClick={() => setActiveTab("Home")}
+        >
           Home
-        </h3>
+        </Link>
 
-        <h3
+        <Link
+          to="/courses"
           className={ontabClick("Course")}
           onClick={() => setActiveTab("Course")}
         >
           Course
-        </h3>
+        </Link>
       </div>
     </div>
   );

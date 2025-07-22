@@ -1,6 +1,6 @@
 import React from 'react'
 import LeftBar from './LeftBar'
-import Courses from '../pages/Courses'
+import { Outlet } from 'react-router-dom'
 
 const HeroSection = () => {
   return (
@@ -9,7 +9,7 @@ const HeroSection = () => {
         <LeftBar />
       </div>
       <div className="w-4/5 flex justify-center">
-        <Courses />
+        <Outlet />
       </div>
     </div>
   )
