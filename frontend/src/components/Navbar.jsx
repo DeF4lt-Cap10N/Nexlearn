@@ -4,7 +4,7 @@ import logo from "../assets/ChatGPT Image Jul 23, 2025, 01_12_03 AM.png"
 const Navbar = () => {
   return (
     <>
-      <div className="fixed top-0 left-0 z-50 bg-white text-black flex justify-between p-2 pt-1 font-serif w-screen ">
+      <div className="fixed top-0 left-0 z-50 bg-white text-black flex justify-between p-2 pt-1 font-serif w-screen shadow-lg ">
         <div className="ml-5">
           <img
             src={logo}

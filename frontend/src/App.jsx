@@ -10,9 +10,12 @@ const App = () => {
     <Router>
       <Navbar/>
       <HeroSection />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
+     
+     <Routes>
+        <Route path="/" element={<HeroSection />}>
+          <Route index element={<Home />} />
+          <Route path="courses" element={<Courses />} />
+        </Route>
       </Routes>
     </Router>
   );

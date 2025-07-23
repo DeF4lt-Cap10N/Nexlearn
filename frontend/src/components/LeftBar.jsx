@@ -11,10 +11,7 @@ const LeftBar = () => {
 
   return (
     <div
-      className="fixed top-14 left-0 w-64 h-[calc(100vh-3.5rem)] bg-primary z-40"
-      style={{
-        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.25)",
-      }}
+      className="fixed top-14 left-0 w-64 h-screen  bg-primary z-40"
     >
       <div className="flex flex-col justify-center pt-10 pl-10 gap-5">
         <p className="text-sm text-gray-400 uppercase font-extrabold ">
