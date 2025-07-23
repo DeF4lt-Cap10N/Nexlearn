@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const courseRouter = Router();
 
-const { courseModel, purchaseModel } = require("../db");
+const { courseModel } = require("../db");
 const { usermiddleware } = require("../middleware/user");
 
 
@@ -23,9 +23,8 @@ courseRouter.post("/purchase", usermiddleware, async (req, res) => {
 
 courseRouter.get("/preview", async (req, res) => {
     const courses = await courseModel.find({});
-
     res.json({
-        courses: courses
+        course: courses
     })
 })
 
