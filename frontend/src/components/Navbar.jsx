@@ -16,9 +16,9 @@ const Navbar = () => {
           <div className="hidden md:flex mr-5 justify-center items-center">
             <input
               placeholder="Type here to Search.."
-              className="border border-neutral-400 bg-white p-1 rounded-l-full pl-5 h-10 outline-none"
+              className="border border-grey-400 bg-white p-1 rounded-l-full pl-5 h-10 outline-none"
             />
-            <span className="border border-neutral-400 bg-white p-1 rounded-r-full w-12 border-l-0 h-10 flex justify-center items-center cursor-pointer">
+            <span className="border border-grey-400 bg-white p-1 rounded-r-full w-12 border-l-0 h-10 flex justify-center items-center cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
