@@ -19,8 +19,8 @@ const PORT = process.env.PORT || 3001;
 const DATABASE = process.env.MONGODBURI;
 
 
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/course", courseRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/admin", adminRouter);
 
 app.get("/api/v1", (req, res) => {

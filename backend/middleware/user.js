@@ -1,20 +1,24 @@
 const jwt = require("jsonwebtoken");
 
+function usermiddleware(req, res, next) {
+    try {
+        const authHeader = req.headers.authorization;
 
-function usermiddleware(req, res, next){
-    const token = req.headers.token;
-    const decode = jwt.verify(token, process.env.JWT_SECRET_USER);
-    if(decode){
-        req.userId=decode.id;
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({ message: "Authorization token missing or malformed" });
+        }
+
+        const token = authHeader.split(" ")[1]; 
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_USER);
+
+        req.userId = decoded.id;
         next();
-    }
-    else{
-        res.status(403).json({
-            message:"You are not signIn"
-        })
+    } catch (err) {
+        console.error("JWT verification failed:", err.message);
+        res.status(403).json({ message: "Invalid or expired token" });
     }
 }
 
 module.exports = {
-    usermiddleware:usermiddleware
-}
+    usermiddleware
+};
