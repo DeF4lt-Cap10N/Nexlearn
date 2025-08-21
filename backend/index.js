@@ -23,12 +23,12 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/admin", adminRouter);
 
-app.get("/api/v1", (req, res) => {
+app.get("/", (req, res) => {
     res.send("hello boys");
 })
 
 async function main() {
-    await mongoose.connect(process.env.MONGODBURI, {
+    await mongoose.connect(DATABASE, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
